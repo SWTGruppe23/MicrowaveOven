@@ -7,27 +7,29 @@ using NUnit.Framework;
 
 namespace Microwave.Test.Implementation
 {
-    public class Tests
+    [TestFixture]
+    public class IT1_UserInterfaceButtonDoor
     {
-        private IButton _startCancelBtn;
-        private IButton _timeBtn;
-        private IButton _powerBtn;
-        private IDoor _door;
+        private Button _startCancelBtn;
+        private Button _timeBtn;
+        private Button _powerBtn;
+        private Door _door;
+        private UserInterface _userInterface;
+
         private IDisplay _fakeDisplay;
         private ILight _fakeLight;
         private ICookController _fakeCookController;
-        private IUserInterface _userInterface;
 
         [SetUp]
         public void Setup()
         {
+            _fakeDisplay = Substitute.For<IDisplay>();
+            _fakeLight = Substitute.For<ILight>();
+            _fakeCookController = Substitute.For<ICookController>();
             _startCancelBtn = new Button();
             _timeBtn = new Button();
             _powerBtn = new Button();
             _door = new Door();
-            _fakeDisplay = Substitute.For<IDisplay>();
-            _fakeLight = Substitute.For<ILight>();
-            _fakeCookController = Substitute.For<ICookController>();
             _userInterface = new UserInterface(
                 _powerBtn,
                 _timeBtn,
@@ -72,7 +74,8 @@ namespace Microwave.Test.Implementation
             _door.Close();
             _powerBtn.Press();
             _timeBtn.Press();
-            _fakeCookController.Received(1).StartCooking(50, 1*60);
+            _startCancelBtn.Press();
+            _fakeCookController.Received(1).StartCooking(50, 60);
         }
     }
 }
