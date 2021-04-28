@@ -1,8 +1,10 @@
-﻿using Microwave.Classes.Boundary;
+﻿using System;
+using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
 using Microwave.Classes.Interfaces;
 using NSubstitute;
 using NSubstitute.ReceivedExtensions;
+using NSubstitute.Routing.Handlers;
 using NUnit.Framework;
 
 namespace Microwave.Test.Implementation
@@ -12,11 +14,12 @@ namespace Microwave.Test.Implementation
     {
         private CookController _cookController;
         private Button _startCancelBtn;
+        private Button _powerBtn;
+        private Button _timeBtn;
         private Door _door;
         private UserInterface _userInterface;
 
-        private IButton _fakeTimeBtn;
-        private IButton _fakePowerBtn;
+        
         private IPowerTube _fakePowerTube;
         private IDisplay _fakeDisplay;
         private ILight _fakeLight;
@@ -25,19 +28,19 @@ namespace Microwave.Test.Implementation
         [SetUp]
         public void Setup()
         {
-            _fakeTimeBtn = Substitute.For<IButton>();
-            _fakePowerBtn = Substitute.For<IButton>();
             _fakePowerTube = Substitute.For<IPowerTube>();
             _fakeDisplay = Substitute.For<IDisplay>();
             _fakeLight = Substitute.For<ILight>();
             _fakeTimer = Substitute.For<ITimer>();
             
             _startCancelBtn = new Button();
+            _timeBtn = new Button();
+            _powerBtn = new Button();
             _door = new Door();
             _cookController = new CookController(_fakeTimer, _fakeDisplay, _fakePowerTube);
 
-            _userInterface = new UserInterface(_fakePowerBtn,
-                _fakeTimeBtn,
+            _userInterface = new UserInterface(_powerBtn,
+                _timeBtn,
                 _startCancelBtn,
                 _door,
                 _fakeDisplay,
@@ -49,9 +52,30 @@ namespace Microwave.Test.Implementation
         }
 
         [Test]
-        public void UserInterfaceOnStartCancelPressed_TimerStart_RecievedCall()
+        public void StartCancelBtnPress_TimerStart_RecievedStart60()
         {
-
+            _door.Open();
+            _door.Close();
+            _powerBtn.Press();
+            _timeBtn.Press();
+            _startCancelBtn.Press();
+            _fakeTimer.Received(1).Start(60);
         }
+
+        // Jeg er i tvivl om vi må kalde eventhandleren i CookControl direkte, men jeg kan ikke finde ud af hvordan 
+        // vi ellers kan udføre den her test
+        [Test]
+        public void CookControllerOnTimerTick_LightTurnOff_RecievedCall()
+        {
+            _door.Open();
+            _door.Close();
+            _powerBtn.Press();
+            _timeBtn.Press();
+            _startCancelBtn.Press();
+            _cookController.OnTimerTick(new object(), EventArgs.Empty);
+            _fakeLight.Received(1).TurnOff();
+        }
+
+
     }
 }
