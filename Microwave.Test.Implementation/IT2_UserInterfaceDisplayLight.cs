@@ -64,20 +64,24 @@ namespace Microwave.Test.Implementation
                 s.ToLower().Contains("off")));
         }
 
-        [Test]
-        public void PowerBtnPress_OutputLogLine_RecievedPower50()
+        [TestCase(1)]
+        [TestCase(5)]
+        public void PowerBtnPress_OutputLogLine_RecievedCorrectPower(int number)
         {
             _door.Open();
             _door.Close();
-            _powerBtn.Press();
+
+            for (int i = 0; i < number; i++)
+                _powerBtn.Press();
+
             _fakeOutput.Received(1).OutputLine(Arg.Is<string>(s =>
-                s.ToLower().Contains("display")
-                &&
-                s.ToLower().Contains("50")));
+            s.ToLower().Contains("display")
+            &&
+            s.ToLower().Contains($"{number*50}")));
         }
 
         [Test]
-        public void TimeBtnPress_OutputLogLine_RecievedTime1()
+        public void TimeBtnPress_OutputLogLine_RecievedCorrectTime()
         {
             _door.Open();
             _door.Close();
