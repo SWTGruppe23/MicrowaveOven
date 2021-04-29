@@ -49,6 +49,14 @@ namespace Microwave.Test.Implementation
         }
 
         [Test]
+        public void DoorClosed_LightTurnOff_RecievedCall()
+        {
+            _door.Open();
+            _door.Close();
+            _fakeLight.Received(1).TurnOff();
+        }
+
+        [Test]
         public void PowerBtnPress_DisplayShowPower_RecievedCall()
         {
             _door.Open();
