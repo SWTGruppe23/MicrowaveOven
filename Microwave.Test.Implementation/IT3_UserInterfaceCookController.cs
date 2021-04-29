@@ -80,7 +80,7 @@ namespace Microwave.Test.Implementation
             _powerBtn.Press();
             _timeBtn.Press();
             _startCancelBtn.Press();
-            _fakeLight.ClearReceivedCalls();
+            _fakeLight.ClearReceivedCalls(); // Clear for at "fjerne" at lyset også slukker når _door.Close() kaldes. Så der bare skal Recieved(1) og ikke 2 for når tiden er gået.
             _fakeTimer.Expired += Raise.Event();
             _fakeLight.Received(1).TurnOff();
         }
