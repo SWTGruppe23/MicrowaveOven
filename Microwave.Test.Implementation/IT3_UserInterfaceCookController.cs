@@ -10,7 +10,7 @@ using NUnit.Framework;
 namespace Microwave.Test.Implementation
 {
     [TestFixture]
-    public class IT2_UserInterfaceCookController
+    public class IT3_UserInterfaceCookController
     {
         private CookController _cookController;
         private Button _startCancelBtn;
@@ -69,7 +69,14 @@ namespace Microwave.Test.Implementation
         [Test]
         public void DoorOpen_TimerStop_RecievedCall()
         {
-
+            _door.Open();
+            _door.Close();
+            _powerBtn.Press();
+            _timeBtn.Press();
+            _startCancelBtn.Press();
+            _fakeTimer.ClearReceivedCalls();
+            _door.Open();
+            _fakeTimer.Received(1).Stop();
         }
 
         [Test]
@@ -84,7 +91,5 @@ namespace Microwave.Test.Implementation
             _fakeTimer.Expired += Raise.Event();
             _fakeLight.Received(1).TurnOff();
         }
-
-
     }
 }
