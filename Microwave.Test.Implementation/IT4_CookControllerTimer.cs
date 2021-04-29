@@ -49,5 +49,17 @@ namespace Microwave.Test.Implementation
             // Completing double association
             _cookController.UI = _userInterface;
         }
+
+        [Test]
+        public void StartCancelBtnPress_DisplayShowTime_RecievedCall()
+        {
+            _door.Open();
+            _door.Close();
+            _powerBtn.Press();
+            _timeBtn.Press();
+            //_fakeDisplay.ClearReceivedCalls();
+            _startCancelBtn.Press();
+            _fakeDisplay.Received(1).ShowTime(1,0);
+        }
     }
 }
