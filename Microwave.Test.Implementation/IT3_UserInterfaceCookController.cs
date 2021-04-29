@@ -19,7 +19,6 @@ namespace Microwave.Test.Implementation
         private Door _door;
         private UserInterface _userInterface;
 
-        
         private IPowerTube _fakePowerTube;
         private IDisplay _fakeDisplay;
         private ILight _fakeLight;
@@ -62,8 +61,6 @@ namespace Microwave.Test.Implementation
             _fakeTimer.Received(1).Start(60);
         }
 
-        // Jeg er i tvivl om vi må kalde eventhandleren i CookControl direkte, men jeg kan ikke finde ud af hvordan 
-        // vi ellers kan udføre den her test
         [Test]
         public void CookControllerOnTimerTick_LightTurnOff_RecievedCall()
         {
@@ -72,7 +69,8 @@ namespace Microwave.Test.Implementation
             _powerBtn.Press();
             _timeBtn.Press();
             _startCancelBtn.Press();
-            _cookController.OnTimerTick(new object(), EventArgs.Empty);
+            _fakeLight.ClearReceivedCalls();
+            _fakeTimer.Expired += Raise.Event();
             _fakeLight.Received(1).TurnOff();
         }
 
