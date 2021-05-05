@@ -43,7 +43,7 @@ namespace Microwave.Test.Implementation
 
         }
 
-        // Test af metoden TurnOn() i Light
+        // Test af light ved at åbne lågen til mikro ovnen og teste på lights output at den skriver det korrekte udfald.
         [Test]
         public void DoorOpen_OutputLogLine_RecievedLightOn() 
         {
@@ -54,7 +54,7 @@ namespace Microwave.Test.Implementation
                 s.ToLower().Contains("on")));
         }
 
-        // Test af metoden TurnOff() i Light
+        // Test af light ved at lukke lågen til mikro ovnen og teste på lights output at den skriver det korrekte udfald.
         [Test]
         public void DoorClosed_OutputLogLine_RecievedLightOff() 
         {
@@ -66,7 +66,7 @@ namespace Microwave.Test.Implementation
                 s.ToLower().Contains("off")));
         }
 
-        // Test af metoden ShowPower() i Display 
+        // Test af power-outputtet ved at kontrollere ved hvert tryk at det korrekte power vises 
         [TestCase(1)]
         [TestCase(5)]
         public void PowerBtnPress_OutputLogLine_RecievedCorrectPower(int number) 
@@ -83,7 +83,7 @@ namespace Microwave.Test.Implementation
             s.ToLower().Contains($"{number*50}")));
         }
 
-        // Test af metoden ShowTime() i Display
+        // Test af outputtet fra timer når timerBtn trykkes én gang.
         [Test]
         public void TimeBtnPress_OutputLogLine_RecievedCorrectTime()
         {
@@ -97,9 +97,9 @@ namespace Microwave.Test.Implementation
                 s.ToLower().Contains("1")));
         }
 
-        // Test af metoden Clear() i Display
+        // Test af om når tiden fra timer er udløbet så stopper mikro ovnen og Clear() kaldes.
         [Test]
-        public void DoorOpen_OutputLogLine_RecievedCleared()
+        public void CookControllerOnTimerExpired_OutputLogLine_RecievedCleared()
         {
             _door.Open();
             _door.Close();
