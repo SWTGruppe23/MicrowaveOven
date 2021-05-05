@@ -42,14 +42,14 @@ namespace Microwave.Test.Implementation
         }
 
         [Test]
-        public void DoorOpen_LightTurnOn_RecievedCall()
+        public void DoorOpen_LightTurnOn_RecievedCall() // Test af om lyset tænder i mikro ovnen når lågen åbnes
         {
             _door.Open();
             _fakeLight.Received(1).TurnOn();
         }
 
         [Test]
-        public void DoorClosed_LightTurnOff_RecievedCall()
+        public void DoorClosed_LightTurnOff_RecievedCall() // Test af om lyset slukker i mikro ovnen når lågen lukkes
         {
             _door.Open();
             _door.Close();
@@ -57,7 +57,7 @@ namespace Microwave.Test.Implementation
         }
 
         [Test]
-        public void PowerBtnPress_DisplayShowPower_RecievedCall()
+        public void PowerBtnPress_DisplayShowPower_RecievedCall() // Test af når der trykkes på powerBtn at displayet på mikro ovnen viser ønsket antal watt på med ét tryk (50W)
         {
             _door.Open();
             _door.Close();
@@ -66,7 +66,7 @@ namespace Microwave.Test.Implementation
         }
 
         [Test]
-        public void TimerShowTime_RecievedCall()
+        public void TimerShowTime_RecievedCall() // Test af når der trykkes på timerBtn at Display viser ønsket tid som mikro ovnen kører ved ét tryk (1 min. 0 s.).
         {
             _door.Open();
             _door.Close();
@@ -76,7 +76,7 @@ namespace Microwave.Test.Implementation
         }
 
         [Test]
-        public void StartCancelBtnPress_CookControllerStartCooking_RecievedCall()
+        public void StartCancelBtnPress_CookControllerStartCooking_RecievedCall() // Test af når der trykkes på startCancelBtn at mikro ovnen går i gang med 50W og i 1 minut. 
         {
             _door.Open();
             _door.Close();
