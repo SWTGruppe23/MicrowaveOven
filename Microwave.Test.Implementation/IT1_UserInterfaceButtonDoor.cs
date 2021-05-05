@@ -41,23 +41,26 @@ namespace Microwave.Test.Implementation
 
         }
 
+        // Test af om lyset tænder i mikro ovnen når lågen åbnes
         [Test]
-        public void DoorOpen_LightTurnOn_RecievedCall() // Test af om lyset tænder i mikro ovnen når lågen åbnes
+        public void DoorOpen_LightTurnOn_RecievedCall() 
         {
             _door.Open();
             _fakeLight.Received(1).TurnOn();
         }
 
+        // Test af om lyset slukker i mikro ovnen når lågen lukkes
         [Test]
-        public void DoorClosed_LightTurnOff_RecievedCall() // Test af om lyset slukker i mikro ovnen når lågen lukkes
+        public void DoorClosed_LightTurnOff_RecievedCall() 
         {
             _door.Open();
             _door.Close();
             _fakeLight.Received(1).TurnOff();
         }
 
+        // Test af når der trykkes på powerBtn at displayet på mikro ovnen viser ønsket antal watt på med ét tryk (50W)
         [Test]
-        public void PowerBtnPress_DisplayShowPower_RecievedCall() // Test af når der trykkes på powerBtn at displayet på mikro ovnen viser ønsket antal watt på med ét tryk (50W)
+        public void PowerBtnPress_DisplayShowPower_RecievedCall() 
         {
             _door.Open();
             _door.Close();
@@ -65,8 +68,9 @@ namespace Microwave.Test.Implementation
             _fakeDisplay.Received(1).ShowPower(50); // requires knowledge that power increases with 50W per press
         }
 
+        // Test af når der trykkes på timerBtn at Display viser ønsket tid som mikro ovnen kører ved ét tryk (1 min. 0 s.).
         [Test]
-        public void TimerShowTime_RecievedCall() // Test af når der trykkes på timerBtn at Display viser ønsket tid som mikro ovnen kører ved ét tryk (1 min. 0 s.).
+        public void TimerShowTime_RecievedCall() 
         {
             _door.Open();
             _door.Close();
@@ -75,8 +79,9 @@ namespace Microwave.Test.Implementation
             _fakeDisplay.Received(1).ShowTime(1, 0); // requires knowledge of how much time increases per press
         }
 
+        // Test af når der trykkes på startCancelBtn at mikro ovnen går i gang med 50W og i 1 minut. 
         [Test]
-        public void StartCancelBtnPress_CookControllerStartCooking_RecievedCall() // Test af når der trykkes på startCancelBtn at mikro ovnen går i gang med 50W og i 1 minut. 
+        public void StartCancelBtnPress_CookControllerStartCooking_RecievedCall() 
         {
             _door.Open();
             _door.Close();
