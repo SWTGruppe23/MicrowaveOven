@@ -50,9 +50,10 @@ namespace Microwave.Test.Implementation
             _cookController.UI = _userInterface;
         }
 
+        // Test of method StartCooking() in CookController
         [TestCase(1)]
         [TestCase(10)]
-        public void StartCancelBtnPress_TimerStart_RecievedStart60(int number)
+        public void StartCancelBtnPress_TimerStart_RecievedStart(int number)
         {
             _door.Open();
             _door.Close();
@@ -66,6 +67,7 @@ namespace Microwave.Test.Implementation
             _fakeTimer.Received(1).Start(number * 60);
         }
 
+        // Test of method Stop() in CookController
         [Test]
         public void DoorOpen_TimerStop_RecievedCall()
         {
@@ -79,8 +81,9 @@ namespace Microwave.Test.Implementation
             _fakeTimer.Received(1).Stop();
         }
 
+        // Test of method CookingIsDone() in UserInterface
         [Test]
-        public void CookControllerOnTimerExpired_LightTurnOff_RecievedCall()
+        public void StartCancelBtnPress_LightTurnOff_RecievedCall()
         {
             _door.Open();
             _door.Close();

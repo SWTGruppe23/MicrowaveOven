@@ -94,10 +94,20 @@ namespace Microwave.Test.Implementation
         }
 
         [Test]
-        public void CookControllerOnTimerExpired_OutputLogLine_RecievedCleared()
+        public void DoorOpen_OutputLogLine_RecievedCleared()
         {
-            // If all methods must be tested, Display.Clear() must be tested here
-            // but it cannot be done without a real CookController og by calling UserInterface.CookingIsDone() directly
+            _door.Open();
+            _door.Close();
+            _powerBtn.Press();
+            _timeBtn.Press();
+            _startCancelBtn.Press();
+
+            _door.Open();
+
+            _fakeOutput.Received(1).OutputLine(Arg.Is<string>(s =>
+                s.ToLower().Contains("display")
+                &&
+                s.ToLower().Contains("cleared")));
         }
     }
 }
