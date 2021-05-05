@@ -41,7 +41,7 @@ namespace Microwave.Test.Implementation
 
         }
 
-        // Test af om lyset tænder i mikro ovnen når lågen åbnes
+        // Test af event handler OnDoorOpened() i UserInterface
         [Test]
         public void DoorOpen_LightTurnOn_RecievedCall() 
         {
@@ -49,7 +49,7 @@ namespace Microwave.Test.Implementation
             _fakeLight.Received(1).TurnOn();
         }
 
-        // Test af om lyset slukker i mikro ovnen når lågen lukkes
+        // Test af event handler OnDoorClosed() i UserInterface
         [Test]
         public void DoorClosed_LightTurnOff_RecievedCall() 
         {
@@ -58,7 +58,7 @@ namespace Microwave.Test.Implementation
             _fakeLight.Received(1).TurnOff();
         }
 
-        // Test af når der trykkes på powerBtn at displayet på mikro ovnen viser ønsket antal watt på med ét tryk (50W)
+        // Test af event handler OnPowerPressed() i UserInterface
         [Test]
         public void PowerBtnPress_DisplayShowPower_RecievedCall() 
         {
@@ -68,7 +68,7 @@ namespace Microwave.Test.Implementation
             _fakeDisplay.Received(1).ShowPower(50); // requires knowledge that power increases with 50W per press
         }
 
-        // Test af når der trykkes på timerBtn at Display viser ønsket tid som mikro ovnen kører ved ét tryk (1 min. 0 s.).
+        // Test af event handler OnTimePressed() i UserInterface
         [Test]
         public void TimerShowTime_RecievedCall() 
         {
@@ -79,7 +79,7 @@ namespace Microwave.Test.Implementation
             _fakeDisplay.Received(1).ShowTime(1, 0); // requires knowledge of how much time increases per press
         }
 
-        // Test af når der trykkes på startCancelBtn at mikro ovnen går i gang med 50W og i 1 minut. 
+        // Test af event handler OnStartCancelPressed() i UserInterface
         [Test]
         public void StartCancelBtnPress_CookControllerStartCooking_RecievedCall() 
         {
